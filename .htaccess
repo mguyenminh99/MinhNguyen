@@ -1,0 +1,23 @@
+# File này được dùng cho việc rewrite URL - tạo các url thên thiện với user
+# bên frontend luôn cần rewrite url
+# bắt đầu khai báo cú pháp để có thể rewrite ra url dạng gio-hang-cua-ban.html thay vì truy cập vào url dạng mvc
+# rewrite nếu áp dụng vào mvc thuần thì sẽ khá nhiều vấn đề phức tạp khi kết hợp với các chức năng như phân trang, tìm kiếm,...
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# khai báo các rule để Rewrite
+# cú pháp như sau:
+#<url-rewrite> <url-mvc>
+RewriteRule gio-hang-cua-ban.html index.php?controller=cart&action=index
+# giả sử rewrite cho trang chi tiết sản phẩm
+# san-pham/samsung-note-10/20.html
+RewriteRule san-pham/(.*)/([0-9]{1,}).html index.php?controller=home&action=detail&title=$1&id=$2
+# khi báo rule cho việc xóa sản phẩm khỏi giỏ hàng
+# xoa-san-pham/4.html
+RewriteRule xoa-san-pham/([0-9]{1,}).html index.php?controller=cart&action=delete&id=$1
+# Rule cho rewrite trang thanh toán
+RewriteRule thanh-toan.html index.php?controller=payment&action=index
+
+RewriteRule home.html index.php?controller=home&action=index
+
+RewriteRule admin.html index.php?controller=product&action=index
